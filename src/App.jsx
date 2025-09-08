@@ -1,5 +1,10 @@
 import "./App.css";
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import {
+  HashRouter,
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Home from "./Components/Home";
 import Note from "./Components/Note";
@@ -17,29 +22,18 @@ const Layout = () => {
   );
 };
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    children: [
-      {
-        index: true,
-        element: <Home />
-      },
-      {
-        path: "notes",
-        element: <Note />
-      },
-      {
-        path: "notes/:id",
-        element: <ViewNote />
-      }
-    ]
-  }
-]);
-
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="notes" element={<Note />} />
+          <Route path="notes/:id" element={<ViewNote />} />
+        </Route>
+      </Routes>
+    </HashRouter>
+  );
 }
 
 export default App;
